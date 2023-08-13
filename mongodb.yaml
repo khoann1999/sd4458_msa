@@ -1,13 +1,23 @@
 ---
+# apiVersion: storage.k8s.io/v1
+# kind: StorageClass
+# metadata:
+#   name: mongo-sc
+# provisioner: kubernetes.io/aws-ebs
+# parameters:
+#   type: gp2
+# volumeBindingMode: WaitForFirstConsumer
+---
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
   name: mongo-sc
-provisioner: kubernetes.io/aws-ebs
+provisioner: kubernetes.io/azure-disk
 parameters:
-  type: gp2
+  skuName: Standard_LRS
+  location: eastus
 volumeBindingMode: WaitForFirstConsumer
-
+allowVolumeExpansion: true
 ---
 apiVersion: v1
 kind: Service
@@ -47,13 +57,13 @@ spec:
     matchLabels:
       name: mongo
   serviceName: "mongo"
-  replicas: 1
+  replicas: 2
   template:
     metadata:
       labels:
         name: mongo
     spec:
-      terminationGracePeriodSeconds: 10
+      terminationGracePeriodSeconds: 30
       containers:
       - name: mongo
         image: mongo
@@ -77,5 +87,14 @@ spec:
         resources:
           requests:
             storage: "1Gi"
-
-
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   name: data-volume
+# spec:
+#   accessModes:
+#     - ReadWriteOnce
+#   storageClassName: fast
+#   resources:
+#     requests:
+#       storage: "1Gi"
