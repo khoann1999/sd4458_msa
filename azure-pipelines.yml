@@ -13,9 +13,8 @@ variables:
   value: '$(Build.BuildId)'
 - name: dockerfilePath
   value: $(Build.SourcesDirectory)/src/backend/Dockerfile'
-
-  # Agent VM image name
-  vmImageName: 'ubuntu-latest'
+- name: vmImageName
+  value: 'ubuntu-latest'
 
 stages:
 - stage: Build
