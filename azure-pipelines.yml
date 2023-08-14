@@ -12,7 +12,7 @@ variables:
 - name: tag
   value: '$(Build.BuildId)'
 - name: dockerfilePath
-  value: $(Build.SourcesDirectory)/src/backend/Dockerfile'
+  value: '$(Build.SourcesDirectory)/src/backend/Dockerfile'
 - name: vmImageName
   value: 'ubuntu-latest'
 
