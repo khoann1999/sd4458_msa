@@ -27,7 +27,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: hnguyencanh/backend:latest
+          image: khoann/backend:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 3000
