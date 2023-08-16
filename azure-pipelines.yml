@@ -30,7 +30,7 @@ stages:
       inputs:
         command: buildAndPush
         repository: $(imageRepository)
-        dockerfile: src/backend/dockerfile
+        dockerfile: $(Build.SourcesDirectory)/src/backend/dockerfile
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
          backend
@@ -40,7 +40,7 @@ stages:
       inputs:
         command: buildAndPush
         repository: $(imageRepository)
-        dockerfile: src/frontend/dockerfile
+        dockerfile: $(Build.SourcesDirectory)/src/frontend/dockerfile
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
          fontend
