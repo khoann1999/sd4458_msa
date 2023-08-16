@@ -70,7 +70,6 @@ stages:
               azureResourceGroup: 'rg'
               kubernetesCluster: 'cluster-large-weevil'
               useClusterAdmin: true
-              kubernetesServiceConnection: 'demotraining'
               namespace: demo
               manifests: |
                 $(System.ArtifactsDirectory)/backend.yml
