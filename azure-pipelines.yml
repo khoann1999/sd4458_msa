@@ -62,6 +62,8 @@ stages:
               cat $(System.ArtifactsDirectory)/frontend.yaml
               cat $(System.ArtifactsDirectory)/ingress.yml
               cat $(System.ArtifactsDirectory)/mongodb.yaml
+              
+
           - task: KubernetesManifest@1
             inputs:
               action: deploy
@@ -70,7 +72,6 @@ stages:
               azureResourceGroup: 'rg'
               kubernetesCluster: 'cluster-large-weevil'
               useClusterAdmin: true
-              namespace: demo
               manifests: |
                 $(System.ArtifactsDirectory)/backend.yaml
                 $(System.ArtifactsDirectory)/frontend.yaml
