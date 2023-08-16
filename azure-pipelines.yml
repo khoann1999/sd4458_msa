@@ -38,7 +38,7 @@ stages:
     - task: PublishPipelineArtifact@1
       inputs:
         artifactName: 'manifests'
-        path: '$(Build.SourcesDirectory)/.cd'
+        path: '$(Build.SourcesDirectory)'
 
 - stage: Deploy
   displayName: Deploy stage
@@ -55,9 +55,9 @@ stages:
           - task: DownloadPipelineArtifact@2
             inputs:
               artifactName: 'manifests'
-              downloadPath: '$(System.ArtifactsDirectory)/manifests'
+              downloadPath: '$(System.ArtifactsDirectory)'
           - script: |
-              ls -la $(System.ArtifactsDirectory)/manifests
+              ls -la $(System.ArtifactsDirectory)/
               cat $(System.ArtifactsDirectory)/backend.yml
               cat $(System.ArtifactsDirectory)/frontend.yml
               cat $(System.ArtifactsDirectory)/ingress.yml
