@@ -27,7 +27,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: khoann/backend:latest
+          image: khoanncontainerregistry.azurecr.io/backend:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 3000
