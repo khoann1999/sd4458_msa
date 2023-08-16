@@ -58,10 +58,10 @@ stages:
               downloadPath: '$(System.ArtifactsDirectory)'
           - script: |
               ls -la $(System.ArtifactsDirectory)/
-              cat $(System.ArtifactsDirectory)/backend.yml
-              cat $(System.ArtifactsDirectory)/frontend.yml
+              cat $(System.ArtifactsDirectory)/backend.yaml
+              cat $(System.ArtifactsDirectory)/frontend.yaml
               cat $(System.ArtifactsDirectory)/ingress.yml
-              cat $(System.ArtifactsDirectory)/mongodb.yml
+              cat $(System.ArtifactsDirectory)/mongodb.yaml
           - task: KubernetesManifest@1
             inputs:
               action: deploy
@@ -72,7 +72,7 @@ stages:
               useClusterAdmin: true
               namespace: demo
               manifests: |
-                $(System.ArtifactsDirectory)/backend.yml
-                $(System.ArtifactsDirectory)/frontend.yml
+                $(System.ArtifactsDirectory)/backend.yaml
+                $(System.ArtifactsDirectory)/frontend.yaml
                 $(System.ArtifactsDirectory)/ingress.yml
-                $(System.ArtifactsDirectory)/mongodb.yml
+                $(System.ArtifactsDirectory)/mongodb.yaml
