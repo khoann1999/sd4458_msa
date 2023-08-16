@@ -40,7 +40,6 @@ stages:
         artifactName: 'manifests'
         path: '$(Build.SourcesDirectory)/.cd'
 
-tages:
 - stage: Deploy
   displayName: Deploy stage
   dependsOn: Build
@@ -63,9 +62,7 @@ tages:
               cat $(System.ArtifactsDirectory)/frontend.yml
               cat $(System.ArtifactsDirectory)/ingress.yml
               cat $(System.ArtifactsDirectory)/mongodb.yml
-
-          - task: KubernetesManifest@0
-            displayName: Deploy to Kubernetes cluster
+          - task: KubernetesManifest@1
             inputs:
               action: deploy
               connectionType: 'azureResourceManager'
@@ -76,5 +73,7 @@ tages:
               kubernetesServiceConnection: 'demotraining'
               namespace: demo
               manifests: |
-                $(System.ArtifactsDirectory)/deployment.yml
-                $(System.ArtifactsDirectory)/service.yml
+                $(System.ArtifactsDirectory)/backend.yml
+                $(System.ArtifactsDirectory)/frontend.yml
+                $(System.ArtifactsDirectory)/ingress.yml
+                $(System.ArtifactsDirectory)/mongodb.yml
