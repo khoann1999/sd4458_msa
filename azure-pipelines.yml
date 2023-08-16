@@ -9,12 +9,18 @@ resources:
 - repo: self
 variables:
 - group: dev-var-group
-- name: tag
-  value: '$(Build.BuildId)'
-- name: dockerfilePath
+- name: imageRepositoryBackend
+  value: 'backend'
+- name: imageRepositoryFrontend
+  value: 'frontend'
+- name: dockerfilePathBackend
   value: '$(Build.SourcesDirectory)/src/backend/Dockerfile'
+- name: dockerfilePathFrontend
+  value: '$(Build.SourcesDirectory)/src/frontend/Dockerfile'
 - name: vmImageName
   value: 'ubuntu-latest'
+- name: tag
+  value: '$(Build.BuildId)'
 
 stages:
 - stage: Build
@@ -29,12 +35,21 @@ stages:
       displayName: Build and push an image to container registry
       inputs:
         command: buildAndPush
-        repository: $(imageRepository)
-        dockerfile: $(dockerfilePath)
+        repository: $(imageRepositoryBackend)
+        dockerfile: $(dockerfilePathBackend)
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
-
+    - task: Docker@2
+      displayName: Build and push an image to container registry
+      inputs:
+        command: buildAndPush
+        repository: $(imageRepositoryFrontend)
+        dockerfile: $(dockerfilePathFrontend)
+        containerRegistry: $(dockerRegistryServiceConnection)
+        tags: |
+          $(tag)
+          
     - task: PublishPipelineArtifact@1
       inputs:
         artifactName: 'manifests'
