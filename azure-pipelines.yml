@@ -34,14 +34,47 @@ stages:
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
-    - task: Kubernetes@1
+
+    - task: PublishPipelineArtifact@1
       inputs:
-        connectionType: 'Azure Resource Manager'
-        azureSubscriptionEndpoint: 'Free Trial(f9a5fd9d-72e0-4364-8d3b-360046e6fa28)'
-        azureResourceGroup: 'rg'
-        kubernetesCluster: 'cluster-large-weevil'
-        useClusterAdmin: true
-        command: 'apply'
-        secretType: 'dockerRegistry'
-        containerRegistryType: 'Azure Container Registry'
-        workingDirectory: '$(System.DefaultWorkingDirectory)\backend.yaml'
+        artifactName: 'manifests'
+        path: '$(Build.SourcesDirectory)/.cd'
+
+tages:
+- stage: Deploy
+  displayName: Deploy stage
+  dependsOn: Build
+  jobs:
+  - deployment: Deploy
+    displayName: Deploy job
+    environment: 'test'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - download: none
+          - task: DownloadPipelineArtifact@2
+            inputs:
+              artifactName: 'manifests'
+              downloadPath: '$(System.ArtifactsDirectory)/manifests'
+          - script: |
+              ls -la $(System.ArtifactsDirectory)/manifests
+              cat $(System.ArtifactsDirectory)/backend.yml
+              cat $(System.ArtifactsDirectory)/frontend.yml
+              cat $(System.ArtifactsDirectory)/ingress.yml
+              cat $(System.ArtifactsDirectory)/mongodb.yml
+
+          - task: KubernetesManifest@0
+            displayName: Deploy to Kubernetes cluster
+            inputs:
+              action: deploy
+              connectionType: 'azureResourceManager'
+              azureSubscriptionConnection: 'Free Trial(f9a5fd9d-72e0-4364-8d3b-360046e6fa28)'
+              azureResourceGroup: 'rg'
+              kubernetesCluster: 'cluster-large-weevil'
+              useClusterAdmin: true
+              kubernetesServiceConnection: 'demotraining'
+              namespace: demo
+              manifests: |
+                $(System.ArtifactsDirectory)/deployment.yml
+                $(System.ArtifactsDirectory)/service.yml
