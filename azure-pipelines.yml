@@ -19,7 +19,7 @@ variables:
   value: '$(Build.SourcesDirectory)/src/frontend/Dockerfile'
 - name: vmImageName
   value: 'ubuntu-latest'
-- name: tag
+- name: image-tag
   value: '$(Build.BuildId)'
 
 stages:
@@ -39,7 +39,7 @@ stages:
         dockerfile: $(dockerfilePathBackend)
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
-          $(tag)
+          $(image-tag)
     - task: Docker@2
       displayName: Build and push an image to container registry
       inputs:
@@ -48,7 +48,7 @@ stages:
         dockerfile: $(dockerfilePathFrontend)
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
-          $(tag)
+          $(image-tag)
           
 #     - task: PublishPipelineArtifact@1
 #       inputs:
