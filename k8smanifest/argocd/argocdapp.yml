@@ -5,6 +5,12 @@ metadata:
   name: multi-apps
   # You'll usually want to add your resources to the argocd namespace.
   namespace: argocd
+  annotations:
+    argocd-image-updater.argoproj.io/image-list: khoanncontainerregistry.azurecr.io/*
+    argocd-image-updater.argoproj.io/write-back-method: git       
+    argocd-image-updater.argoproj.io/git-branch: main      
+    argocd-image-updater.argoproj.io/write-back-target: kustomization
+    argocd-image-updater.argoproj.io/myalias.force-update: "true"
   # Add a this finalizer ONLY if you want these to cascade delete.
   # finalizers:
   #   - resources-finalizer.argocd.argoproj.io
