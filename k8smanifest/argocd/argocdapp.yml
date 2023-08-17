@@ -16,7 +16,7 @@ spec:
   source:
     repoURL: https://github.com/khoann1999/sd4458_msa
     targetRevision: HEAD
-    path: ./
+    path: ./k8smanifest
    
     # directory
     directory:
