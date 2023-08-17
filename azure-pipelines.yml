@@ -50,46 +50,46 @@ stages:
         tags: |
           latest
           
-#     - task: PublishPipelineArtifact@1
-#       inputs:
-#         artifactName: 'manifests'
-#         path: '$(Build.SourcesDirectory)'
+    - task: PublishPipelineArtifact@1
+      inputs:
+        artifactName: 'manifests'
+        path: '$(Build.SourcesDirectory)'
 
-# - stage: Deploy
-#   displayName: Deploy stage
-#   dependsOn: Build
-#   jobs:
-#   - deployment: Deploy
-#     displayName: Deploy job
-#     environment: 'test'
-#     strategy:
-#       runOnce:
-#         deploy:
-#           steps:
-#           - download: none
-#           - task: DownloadPipelineArtifact@2
-#             inputs:
-#               artifactName: 'manifests'
-#               downloadPath: '$(System.ArtifactsDirectory)'
-#           - script: |
-#               ls -la $(System.ArtifactsDirectory)/
-#               cat $(System.ArtifactsDirectory)/backend.yaml
-#               cat $(System.ArtifactsDirectory)/frontend.yaml
-#               cat $(System.ArtifactsDirectory)/ingress.yml
-#               cat $(System.ArtifactsDirectory)/mongodb.yaml
+- stage: Deploy
+  displayName: Deploy stage
+  dependsOn: Build
+  jobs:
+  - deployment: Deploy
+    displayName: Deploy job
+    environment: 'test'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - download: none
+          - task: DownloadPipelineArtifact@2
+            inputs:
+              artifactName: 'manifests'
+              downloadPath: '$(System.ArtifactsDirectory)'
+          - script: |
+              ls -la $(System.ArtifactsDirectory)/
+              cat $(System.ArtifactsDirectory)/backend.yaml
+              cat $(System.ArtifactsDirectory)/frontend.yaml
+              cat $(System.ArtifactsDirectory)/ingress.yml
+              cat $(System.ArtifactsDirectory)/mongodb.yaml
               
 
-#           - task: KubernetesManifest@1
-#             inputs:
-#               action: deploy
-#               connectionType: 'azureResourceManager'
-#               azureSubscriptionConnection: 'Free Trial(f9a5fd9d-72e0-4364-8d3b-360046e6fa28)'
-#               azureResourceGroup: 'rg-noted-whippet'
-#               kubernetesCluster: 'cluster-noted-whippet'
-#               useClusterAdmin: true
-#               manifests: |
-#                 $(System.ArtifactsDirectory)/backend.yaml
-#                 $(System.ArtifactsDirectory)/frontend.yaml
-#                 $(System.ArtifactsDirectory)/ingress.yml
-#                 $(System.ArtifactsDirectory)/mongodb.yaml
+          - task: KubernetesManifest@1
+            inputs:
+              action: deploy
+              connectionType: 'azureResourceManager'
+              azureSubscriptionConnection: 'Free Trial(f9a5fd9d-72e0-4364-8d3b-360046e6fa28)'
+              azureResourceGroup: 'rg-noted-whippet'
+              kubernetesCluster: 'cluster-noted-whippet'
+              useClusterAdmin: true
+              manifests: |
+                $(System.ArtifactsDirectory)/backend.yaml
+                $(System.ArtifactsDirectory)/frontend.yaml
+                $(System.ArtifactsDirectory)/ingress.yml
+                $(System.ArtifactsDirectory)/mongodb.yaml
 
