@@ -37,7 +37,7 @@ stages:
         dockerfile: $(dockerfilePathBackend)
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
-           $(Build.BuildId)
+            $(Build.BuildId)
             latest
     - task: Docker@2
       displayName: Build and push an image to container registry
@@ -47,7 +47,7 @@ stages:
         dockerfile: $(dockerfilePathFrontend)
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
-           $(Build.BuildId)
+            $(Build.BuildId)
             latest
           
     - task: PublishPipelineArtifact@1
