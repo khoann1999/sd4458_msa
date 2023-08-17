@@ -7,11 +7,15 @@ metadata:
   namespace: argocd
   annotations:
     argocd-image-updater.argoproj.io/image-list: backend=khoanncontainerregistry.azurecr.io/backend
+    argocd-image-updater.argoproj.io/image-list: frontend=khoanncontainerregistry.azurecr.io/frontend
     argocd-image-updater.argoproj.io/backend.update-strategy: latest
+    argocd-image-updater.argoproj.io/frontend.update-strategy: latest
     argocd-image-updater.argoproj.io/write-back-method: git:secret:argocd/git-creds       
     argocd-image-updater.argoproj.io/git-branch: master      
     argocd-image-updater.argoproj.io/write-back-target: kustomization:/k8smanifest
-    argocd-image-updater.argoproj.io/backend.myalias.force-update: "true"
+    argocd-image-updater.argoproj.io/backend.force-update: "true"
+    argocd-image-updater.argoproj.io/frontend.force-update: "true"
+
   # Add a this finalizer ONLY if you want these to cascade delete.
   # finalizers:
   #   - resources-finalizer.argocd.argoproj.io
