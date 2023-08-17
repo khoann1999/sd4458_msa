@@ -5,4 +5,4 @@ resources:
 - frontend.yaml
 images:
 - name: khoanncontainerregistry.azurecr.io/backend
-  newTag: "703"
+  newTag: "704"
