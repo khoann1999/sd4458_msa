@@ -90,6 +90,6 @@ stages:
               manifests: |
                 $(System.ArtifactsDirectory)/backend.yaml
                 $(System.ArtifactsDirectory)/frontend.yaml
-                $(System.ArtifactsDirectory)/ingress.yml
                 $(System.ArtifactsDirectory)/mongodb.yaml
-
+                https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.7.1/deploy/static/provider/cloud/deploy.yaml
+                $(System.ArtifactsDirectory)/ingress.yml
