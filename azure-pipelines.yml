@@ -73,10 +73,17 @@ stages:
               downloadPath: '$(System.ArtifactsDirectory)'
           - script: |
               ls -la $(System.ArtifactsDirectory)/
+<<<<<<< HEAD
               cat $(System.ArtifactsDirectory)/k8smanifest/backend.yaml
               cat $(System.ArtifactsDirectory)/k8smanifest/frontend.yaml
               cat $(System.ArtifactsDirectory)/k8smanifest/ingress.yml
               cat $(System.ArtifactsDirectory)/k8smanifest/mongodb.yaml
+=======
+              cat $(System.ArtifactsDirectory)/backend.yaml
+              cat $(System.ArtifactsDirectory)/frontend.yaml
+              cat $(System.ArtifactsDirectory)/ingress.yml
+              cat $(System.ArtifactsDirectory)/mongodb.yaml
+>>>>>>> ea01e1a21d29522c1dc7ccbfb80ac6f92d00232d
               
 
           - task: KubernetesManifest@1
@@ -88,7 +95,14 @@ stages:
               kubernetesCluster: 'cluster-fond-moth'
               useClusterAdmin: true
               manifests: |
+<<<<<<< HEAD
                 $(System.ArtifactsDirectory)/k8smanifest/backend.yaml
                 $(System.ArtifactsDirectory)/k8smanifest/frontend.yaml
                 $(System.ArtifactsDirectory)/k8smanifest/mongodb.yaml
                 $(System.ArtifactsDirectory)/k8smanifest/ingress.yml
+=======
+                $(System.ArtifactsDirectory)/backend.yaml
+                $(System.ArtifactsDirectory)/frontend.yaml
+                $(System.ArtifactsDirectory)/mongodb.yaml
+                $(System.ArtifactsDirectory)/ingress.yml
+>>>>>>> ea01e1a21d29522c1dc7ccbfb80ac6f92d00232d
