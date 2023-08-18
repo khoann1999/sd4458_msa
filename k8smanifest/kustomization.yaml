@@ -7,4 +7,4 @@ images:
 - name: khoanncontainerregistry.azurecr.io/backend
   newTag: "716"
 - name: khoanncontainerregistry.azurecr.io/frontend
-  newTag: "716"
+  newTag: "719"
