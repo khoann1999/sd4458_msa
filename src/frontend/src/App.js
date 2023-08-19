@@ -41,7 +41,7 @@ export default class App extends React.Component {
         <div className="container-fluid">
           <div className="row">
             <div className="col-xs-12 col-sm-8 col-md-8 offset-md-2">
-              <h1>Todos Argo image updater test</h1>
+              <h1>Todos Argo khoann</h1>
               <div className="todo-app">
                 <AddTodo handleAddTodo={this.handleAddTodo} />
                 <TodoList todos={this.state.todos} />
